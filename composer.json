@@ -7,7 +7,7 @@
     "intergration",
     "bridge"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://www.faldoria.de",
   "license": "MIT",
   "authors": [
@@ -24,8 +24,7 @@
     "symfony/form": "~2.3|^3.0|^4.0",
     "symfony/security-bundle": "~2.3|^3.0|^4.0",
     "doctrine/common": "~2.1",
-    "doctrine/orm": "~2.1",
-    "woltlab/wcf": "*"
+    "doctrine/orm": "~2.1"
   },
   "require-dev": {
     "phpunit/phpunit": "*",
@@ -33,22 +32,6 @@
   },
   "minimum-stability": "stable",
   "autoload": {
-    "psr-4": {"xanily\\WCFSessionsAuthBundle\\": "src/"},
-    "classmap": [
-      "vendor/woltlab/wcf/wcfsetup/install/files/lib/"
-    ]
-  },
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "name": "woltlab/wcf",
-        "version": "3.1",
-        "source": {
-          "url": "https://github.com/WoltLab/WCF",
-          "type": "git",
-          "reference": "master"
-        }
-      }
-    }]
+    "psr-4": {"xanily\\WCFSessionsAuthBundle\\": "src/"}
+  }
 }

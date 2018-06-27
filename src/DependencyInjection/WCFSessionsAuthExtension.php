@@ -25,10 +25,9 @@ class WCFSessionsAuthExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter('wcf_to_symfony_bridge.cookie_prefix', $config['cookie_prefix']);
-        $container->setParameter('wcf_to_symfony_bridge.default_success_route', $config['default_success_route']);
-        $container->setParameter('wcf_to_symfony_bridge.table_prefix', $config['table_prefix']);
-        $container->setParameter('wcf_to_symfony_bridge.prefixed_entity_classes', $config['prefixed_entity_classes']);
+        $container->setParameter('wcf_sessions_auth.session.cookie_prefix', $config['cookie_prefix']);
+        $container->setParameter('wcf_sessions_auth.session.default_success_route', $config['default_success_route']);
+        $container->setParameter('wcf_sessions_auth.database.table_prefix', $config['table_prefix']);
 
     }
 }

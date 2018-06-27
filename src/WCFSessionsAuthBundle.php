@@ -1,6 +1,6 @@
 <?php
 
-namespace xanily\SessionsAuthBundle;
+namespace xanily\WCFSessionsAuthBundle;
 
 use Symfony\Component\HttpKernle\Bundle\Bundle;
 

@@ -2,7 +2,7 @@
 
 namespace xanily\WCFSessionsAuthBundle;
 
-use Symfony\Component\HttpKernle\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class WCFSessionsAuthBundle extends Bundle
 {

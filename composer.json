@@ -1,0 +1,54 @@
+{
+  "name": "xanily/wcf-sessions-auth-bundle",
+  "type": "symfony-bundle",
+  "description": "A symfony bundle that provides symfony the ability to integrate and share sessions with WCF and use WCF as the authentication provider.",
+  "keywords": [
+    "WCF",
+    "intergration",
+    "bridge"
+  ],
+  "version": "1.0.2",
+  "homepage": "https://www.faldoria.de",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "xanily",
+      "email": "xanily@faldoria.de",
+      "homepage": "https://www.faldoria.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "symfony/framework-bundle": "~2.3|^3.0|^4.0",
+    "symfony/twig-bundle": "~2.3|^3.0|^4.0",
+    "symfony/form": "~2.3|^3.0|^4.0",
+    "symfony/security-bundle": "~2.3|^3.0|^4.0",
+    "doctrine/common": "~2.1",
+    "doctrine/orm": "~2.1",
+    "woltlab/wcf": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "symfony/var-dumper": "*"
+  },
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {"xanily\\WCFSessionsAuthBundle\\": "src/"},
+    "classmap": [
+      "vendor/woltlab/wcf/wcfsetup/install/files/lib/"
+    ]
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "woltlab/wcf",
+        "version": "3.1",
+        "source": {
+          "url": "https://github.com/WoltLab/WCF",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    }]
+}

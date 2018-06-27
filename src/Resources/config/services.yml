@@ -1,4 +1,10 @@
 services:
+  wcf.sessionsauthbundle.wcf_redirect_successful_login:
+    class:     xanily\WCFSessionsAuthBundle\Security\Guard\AuthenticationResponseStrategy\RedirectToRoute
+    arguments:
+      - '@router'
+      - '%wcf_sessions_auth.session.default_success_route%'
+
   wcf.sessionsauthbundle.wcf_encoder:
     class:  xanily\WCFSessionsAuthBundle\Security\Core\Encoder\WcfPasswordEncoder
     public: true
@@ -29,7 +35,7 @@ services:
     autowire:  true
     arguments:
       - '@wcf.sessionsauthbundle.wcf_redirect_to_wcf_login'
-      - '%wcf_sessions_auth.session.default_success_route%'
+      - '@wcf.sessionsauthbundle.wcf_redirect_successful_login'
       - '@wcf.sessionsauthbundle.wcf_redirect_to_wcf_login'
       - '$wcf_sessions_auth.session.cookie_prefix'
 

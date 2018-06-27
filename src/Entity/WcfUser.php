@@ -10,7 +10,7 @@ use xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository;
  * WcfUser
  *
  * @ORM\Table(name="user", indexes={@ORM\Index(name="username", columns={"username"}), @ORM\Index(name="registrationDate", columns={"registrationDate"}), @ORM\Index(name="styleID", columns={"styleID"}), @ORM\Index(name="activationCode", columns={"activationCode"}), @ORM\Index(name="registrationData", columns={"registrationIpAddress", "registrationDate"}), @ORM\Index(name="activityPoints", columns={"activityPoints"}), @ORM\Index(name="likesReceived", columns={"likesReceived"}), @ORM\Index(name="99534d56799b78a28b3afd08a5582998_fk", columns={"avatarID"}), @ORM\Index(name="4701917c09ab22152907bc412a1ff9bf_fk", columns={"rankID"}), @ORM\Index(name="e9baf116e7dc934c6311c3beebabed5d_fk", columns={"userOnlineGroupID"}), @ORM\Index(name="blogEntries", columns={"blogEntries"}), @ORM\Index(name="wbbPosts", columns={"wbbPosts"})})
- * @ORM\Entity(repositoryClass="xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository")
+ * @ORM\Entity(repositoryClass="WcfUserRepository")
  */
 class WcfUser implements UserInterface, \Serializable
 {
@@ -1220,10 +1220,10 @@ class WcfUser implements UserInterface, \Serializable
     /**
      * Add groupid
      *
-     * @param \xanily\WCFSessionsAuthBundle\Entity\WcfUserGroup $groupid
+     * @param WcfUserGroup $groupid
      * @return WcfUser
      */
-    public function addGroupid(\xanily\WCFSessionsAuthBundle\Entity\WcfUserGroup $groupid)
+    public function addGroupid(WcfUserGroup $groupid)
     {
         $this->groupid[] = $groupid;
 
@@ -1233,9 +1233,9 @@ class WcfUser implements UserInterface, \Serializable
     /**
      * Remove groupid
      *
-     * @param \xanily\WCFSessionsAuthBundle\Entity\WcfUserGroup $groupid
+     * @param WcfUserGroup $groupid
      */
-    public function removeGroupid(\xanily\WCFSessionsAuthBundle\Entity\WcfUserGroup $groupid)
+    public function removeGroupid(WcfUserGroup $groupid)
     {
         $this->groupid->removeElement($groupid);
     }

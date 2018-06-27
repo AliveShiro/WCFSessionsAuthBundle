@@ -106,9 +106,9 @@ class WcfSession
     private $sessionid;
 
     /**
-     * @var \xanily\WCFSessionsAuthBundle\Entity\WcfUser
+     * @var WcfUser
      *
-     * @ORM\ManyToOne(targetEntity="xanily\WCFSessionsAuthBundle\Entity\WcfUser")
+     * @ORM\ManyToOne(targetEntity="WcfUser")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userID", referencedColumnName="userID")
      * })
@@ -406,10 +406,10 @@ class WcfSession
     /**
      * Set userid
      *
-     * @param \xanily\WCFSessionsAuthBundle\Entity\WcfUser $userid
+     * @param WcfUser $userid
      * @return WcfSession
      */
-    public function setUserid(\xanily\WCFSessionsAuthBundle\Entity\WcfUser $userid = null)
+    public function setUserid(WcfUser $userid = null)
     {
         $this->userid = $userid;
 
@@ -419,7 +419,7 @@ class WcfSession
     /**
      * Get userid
      *
-     * @return \xanily\WCFSessionsAuthBundle\Entity\WcfUser
+     * @return WcfUser
      */
     public function getUserid()
     {

@@ -230,10 +230,10 @@ class WcfUserGroup
     /**
      * Add userid
      *
-     * @param \xanily\WCFSessionsAuthBundle\Entity\WcfUser $userid
+     * @param WcfUser $userid
      * @return WcfUserGroup
      */
-    public function addUserid(\xanily\WCFSessionsAuthBundle\Entity\WcfUser $userid)
+    public function addUserid(WcfUser $userid)
     {
         $this->userid[] = $userid;
 
@@ -243,9 +243,9 @@ class WcfUserGroup
     /**
      * Remove userid
      *
-     * @param \xanily\WCFSessionsAuthBundle\Entity\WcfUser $userid
+     * @param WcfUser $userid
      */
-    public function removeUserid(\xanily\WCFSessionsAuthBundle\Entity\WcfUser $userid)
+    public function removeUserid(WcfUser $userid)
     {
         $this->userid->removeElement($userid);
     }

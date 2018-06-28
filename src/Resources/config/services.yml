@@ -9,11 +9,17 @@ services:
     class:  xanily\WCFSessionsAuthBundle\Security\Core\Encoder\WcfPasswordEncoder
     public: true
 
-  wcf.sessionsauthbundle.wcf_user_repository:
-    class:     xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository
-    factory:   ['@doctrine', getRepository]
-    arguments:
-      - WCFSessionsAuthBundle:WcfUser
+  #wcf.sessionsauthbundle.wcf_user_repository:
+    #class:     xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository
+    #factory:   ['@doctrine', getRepository]
+    #arguments:
+      #- xanily\WCFSessionsAuthBundle\Entity\WcfUser
+
+  wcf.sessionsauthbundle.wcf_user_provider:
+    class:     xanily\WCFSessionsAuthBundle\Security\Provider\WcfUserProvider
+    public:    false
+    arguments: ["@doctrine", "%wcf_sessions_auth.database.entity_manager%"]
+    calls:      [[setRoles, ["%wcf_sessions_auth.roles%"]], [setIpCheckLength, ["%wcf_sessions_auth.session.ip_check%"]]]
 
   wcf.sessionsauthbundle.wcf_auth_no_action:
     class: xanily\WCFSessionsAuthBundle\Security\Guard\AuthenticationResponseStrategy\NoAction

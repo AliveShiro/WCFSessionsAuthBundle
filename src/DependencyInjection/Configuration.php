@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('session')->isRequired()
                         ->children()
                             ->scalarNode('cookie_prefix')->defaultValue('wcf_')->end()
+                            ->scalarNode('ip_check')->defaultValue(3)->end()
                             ->scalarNode('login_page')->defaultValue('Login')->end()
                             ->scalarNode('default_success_route')->defaultValue('/')->end()
                         ->end()

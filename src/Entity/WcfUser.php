@@ -296,6 +296,11 @@ class WcfUser implements UserInterface, \Serializable
      */
     private $userid;
 
+    /**
+     * @var array
+     */
+    private $roles = [];
+
 
 
     /**
@@ -1288,6 +1293,25 @@ class WcfUser implements UserInterface, \Serializable
     }
 
     /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     *
+     * @return WcfUser
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    /**
      * Returns the roles granted to the user.
      *
      * <code>
@@ -1301,13 +1325,14 @@ class WcfUser implements UserInterface, \Serializable
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return (Role|string)[] The user roles
-     */
-    public function getRoles()
-    {
-        // @todo map forum roles to symfony roles
-        return array('ROLE_WCF');
-    }
+     * return (Role|string)[] The user roles
+     *
+     *    public function getRoles()
+     *    {
+     *        // todo map forum roles to symfony roles
+     *        return array('ROLE_WCF');
+     *    }
+     * */
 
     /**
      * Returns the salt that was originally used to encode the password.

@@ -4,13 +4,12 @@ namespace xanily\WCFSessionsAuthBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository;
 
 /**
  * WcfUser
  *
  * @ORM\Table(name="user", indexes={@ORM\Index(name="username", columns={"username"}), @ORM\Index(name="registrationDate", columns={"registrationDate"}), @ORM\Index(name="styleID", columns={"styleID"}), @ORM\Index(name="activationCode", columns={"activationCode"}), @ORM\Index(name="registrationData", columns={"registrationIpAddress", "registrationDate"}), @ORM\Index(name="activityPoints", columns={"activityPoints"}), @ORM\Index(name="likesReceived", columns={"likesReceived"}), @ORM\Index(name="99534d56799b78a28b3afd08a5582998_fk", columns={"avatarID"}), @ORM\Index(name="4701917c09ab22152907bc412a1ff9bf_fk", columns={"rankID"}), @ORM\Index(name="e9baf116e7dc934c6311c3beebabed5d_fk", columns={"userOnlineGroupID"}), @ORM\Index(name="blogEntries", columns={"blogEntries"}), @ORM\Index(name="wbbPosts", columns={"wbbPosts"})})
- * @ORM\Entity(repositoryClass="WcfUserRepository")
+ * @ORM\Entity(repositoryClass="xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository")
  */
 class WcfUser implements UserInterface, \Serializable
 {
@@ -295,11 +294,6 @@ class WcfUser implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $userid;
-
-    /**
-     * @var array
-     */
-    private $roles = [];
 
 
 
@@ -1293,25 +1287,6 @@ class WcfUser implements UserInterface, \Serializable
     }
 
     /**
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @param array $roles
-     *
-     * @return WcfUser
-     */
-    public function setRoles(array $roles)
-    {
-        $this->roles = $roles;
-        return $this;
-    }
-
-    /**
      * Returns the roles granted to the user.
      *
      * <code>
@@ -1325,14 +1300,13 @@ class WcfUser implements UserInterface, \Serializable
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * return (Role|string)[] The user roles
-     *
-     *    public function getRoles()
-     *    {
-     *        // todo map forum roles to symfony roles
-     *        return array('ROLE_WCF');
-     *    }
-     * */
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        // @todo map forum roles to symfony roles
+        return array('ROLE_WCF');
+    }
 
     /**
      * Returns the salt that was originally used to encode the password.

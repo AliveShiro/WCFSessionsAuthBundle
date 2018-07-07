@@ -2,341 +2,344 @@
 
 namespace xanily\WCFSessionsAuthBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * WcfUser
- *
- * @ORM\Table(name="user", indexes={@ORM\Index(name="username", columns={"username"}), @ORM\Index(name="registrationDate", columns={"registrationDate"}), @ORM\Index(name="styleID", columns={"styleID"}), @ORM\Index(name="activationCode", columns={"activationCode"}), @ORM\Index(name="registrationData", columns={"registrationIpAddress", "registrationDate"}), @ORM\Index(name="activityPoints", columns={"activityPoints"}), @ORM\Index(name="likesReceived", columns={"likesReceived"}), @ORM\Index(name="99534d56799b78a28b3afd08a5582998_fk", columns={"avatarID"}), @ORM\Index(name="4701917c09ab22152907bc412a1ff9bf_fk", columns={"rankID"}), @ORM\Index(name="e9baf116e7dc934c6311c3beebabed5d_fk", columns={"userOnlineGroupID"}), @ORM\Index(name="blogEntries", columns={"blogEntries"}), @ORM\Index(name="wbbPosts", columns={"wbbPosts"})})
- * @ORM\Entity(repositoryClass="xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository")
+ * Class WcfUser
+ * @package xanily\WCFSessionsAuthBundle\Entity
+ * @ORM\Entity(readOnly=true)
+ * @ORM\Table(name="user")
  */
-class WcfUser implements UserInterface, \Serializable
+class WcfUser implements UserInterface
 {
     /**
+     * @var integer
+     * @ORM\Id
+     * @ORM\Column(name="userID", type="integer")
+     */
+    private $userID;
+
+    /**
      * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     * @ORM\Column(name="username", type="string")
      */
     private $username;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="email", type="string")
      */
     private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=100, nullable=false)
+     * @ORM\Column(name="password", type="string")
      */
     private $password;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="accessToken", type="string", length=40, nullable=false)
+     * @ORM\Column(name="accessToken", type="string")
      */
-    private $accesstoken;
+    private $accessToken;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="languageID", type="integer", nullable=false)
+     * @ORM\Column(name="languageID", type="integer")
      */
-    private $languageid;
+    private $languageID;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="registrationDate", type="integer", nullable=false)
+     * @ORM\Column(name="registrationDate", type="integer")
      */
-    private $registrationdate;
+    private $registrationDate;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="styleID", type="integer", nullable=false)
+     * @ORM\Column(name="styleID", type="integer")
      */
-    private $styleid;
+    private $styleID;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="banned", type="boolean", nullable=false)
+     * @ORM\Column(name="banned", type="boolean")
      */
     private $banned;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="banReason", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="banReason", type="string")
      */
-    private $banreason;
+    private $banReason;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="activationCode", type="integer", nullable=false)
+     * @ORM\Column(name="banExpires", type="integer")
      */
-    private $activationcode;
+    private $banExpires;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="lastLostPasswordRequestTime", type="integer", nullable=false)
+     * @ORM\Column(name="activationCode", type="integer")
      */
-    private $lastlostpasswordrequesttime;
+    private $activationCode;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="lastLostPasswordRequestTime", type="integer")
+     */
+    private $lastLostPasswordRequestTime;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="lostPasswordKey", type="string", length=40, nullable=false)
+     * @ORM\Column(name="lostPasswordKey", type="string")
      */
-    private $lostpasswordkey;
+    private $lostPasswordKey;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="lastUsernameChange", type="integer", nullable=false)
+     * @ORM\Column(name="lastUsernameChange", type="integer")
      */
-    private $lastusernamechange;
+    private $lastUsernameChange;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="newEmail", type="string", length=255, nullable=false)
+     * @ORM\Column(name="newEmail", type="string")
      */
-    private $newemail;
+    private $newEmail;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="oldUsername", type="string", length=255, nullable=false)
+     * @ORM\Column(name="oldUsername", type="string")
      */
-    private $oldusername;
+    private $oldUsername;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="quitStarted", type="integer", nullable=false)
+     * @ORM\Column(name="quitStarted", type="integer")
      */
-    private $quitstarted;
+    private $quitStarted;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="reactivationCode", type="integer", nullable=false)
+     * @ORM\Column(name="reactivationCode", type="integer")
      */
-    private $reactivationcode;
+    private $reactivationCode;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="registrationIpAddress", type="string", length=39, nullable=false)
+     * @ORM\Column(name="registrationIpAddress", type="string")
      */
-    private $registrationipaddress;
+    private $registrationIpAddress;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="avatarID", type="integer", nullable=true)
+     * @ORM\Column(name="avatarID", type="integer")
      */
-    private $avatarid;
+    private $avatarID;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="disableAvatar", type="boolean", nullable=false)
+     * @ORM\Column(name="disableAvatar", type="boolean")
      */
-    private $disableavatar;
+    private $disableAvatar;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="disableAvatarReason", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="disableAvatarReason", type="string")
      */
-    private $disableavatarreason;
+    private $disableAvatarReason;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="disableAvatarExpires", type="integer")
+     */
+    private $disableAvatarExpires;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="enableGravatar", type="boolean", nullable=false)
+     * @ORM\Column(name="enableGravatar", type="boolean")
      */
-    private $enablegravatar;
+    private $enableGravatar;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="signature", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="gravatarFileExtension", type="string")
+     */
+    private $gravatarFileExtension;
+
+    /**
+     * @var string
+     * @ORM\Column(name="signature", type="string")
      */
     private $signature;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="signatureEnableBBCodes", type="boolean", nullable=false)
+     * @ORM\Column(name="signatureEnableHtml", type="boolean")
      */
-    private $signatureenablebbcodes;
+    private $signatureEnableHtml;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="signatureEnableHtml", type="boolean", nullable=false)
+     * @ORM\Column(name="disableSignature", type="boolean")
      */
-    private $signatureenablehtml;
+    private $disableSignature;
+
+    /**
+     * @var string
+     * @ORM\Column(name="disableSignatureReason", type="string")
+     */
+    private $disableSignatureReason;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="disableSignatureExpires", type="integer")
+     */
+    private $disableSignatureExpires;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="lastActivityTime", type="integer")
+     */
+    private $lastActivityTime;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="profileHits", type="integer")
+     */
+    private $profileHits;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="rankID", type="integer")
+     */
+    private $rankID;
+
+    /**
+     * @var string
+     * @ORM\Column(name="userTitle", type="string")
+     */
+    private $userTitle;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="userOnlineGroupID", type="integer")
+     */
+    private $userOnlineGroupID;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="activityPoints", type="integer")
+     */
+    private $activityPoints;
+
+    /**
+     * @var string
+     * @ORM\Column(name="notificationMailToken", type="string")
+     */
+    private $notificationMailToken;
+
+    /**
+     * @var string
+     * @ORM\Column(name="authData", type="string")
+     */
+    private $authData;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="likesReceived", type="integer")
+     */
+    private $likesReceived;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="trophyPoints", type="integer")
+     */
+    private $trophyPoints;
+
+    /**
+     * @var string
+     * @ORM\Column(name="coverPhotoHash", type="string")
+     */
+    private $coverPhotoHash;
+
+    /**
+     * @var string
+     * @ORM\Column(name="coverPhotoExtension", type="string")
+     */
+    private $coverPhotoExtension;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="signatureEnableSmilies", type="boolean", nullable=false)
+     * @ORM\Column(name="disableCoverPhoto", type="boolean")
      */
-    private $signatureenablesmilies;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="disableSignature", type="boolean", nullable=false)
-     */
-    private $disablesignature;
+    private $disableCoverPhoto;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="disableSignatureReason", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="disableCoverPhotoReason", type="string")
      */
-    private $disablesignaturereason;
+    private $disableCoverPhotoReason;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="lastActivityTime", type="integer", nullable=false)
+     * @ORM\Column(name="disableCoverPhotoExpires", type="integer")
      */
-    private $lastactivitytime;
+    private $disableCoverPhotoExpires;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="profileHits", type="integer", nullable=false)
+     * @ORM\Column(name="wbbPosts", type="integer")
      */
-    private $profilehits;
+    private $wbbPosts;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="rankID", type="integer", nullable=true)
+     * @var array
      */
-    private $rankid;
+    private $roles = [];
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="userTitle", type="string", length=255, nullable=false)
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="WcfUserGroup", mappedBy="user")
      */
-    private $usertitle;
+    private $groups;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="userOnlineGroupID", type="integer", nullable=true)
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="WcfSession", mappedBy="user")
      */
-    private $useronlinegroupid;
+    private $sessions;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
+    }
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="activityPoints", type="integer", nullable=false)
+     * @return integer
      */
-    private $activitypoints;
+    public function getId()
+    {
+        return $this->userID;
+    }
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="notificationMailToken", type="string", length=20, nullable=false)
-     */
-    private $notificationmailtoken;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="authData", type="string", length=255, nullable=false)
-     */
-    private $authdata;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="likesReceived", type="integer", nullable=false)
-     */
-    private $likesreceived;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="blogEntries", type="integer", nullable=false)
-     */
-    private $blogentries;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="wbbPosts", type="integer", nullable=false)
-     */
-    private $wbbposts;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="userID", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $userid;
-
-
-
-    /**
-     * Set username
-     *
-     * @param string $username
+     * @param integer $userId
      * @return WcfUser
      */
-    public function setUsername($username)
+    public function setId($userId)
     {
-        $this->username = $username;
-
+        $this->userID = $userId;
         return $this;
     }
 
     /**
-     * Get username
-     *
-     * @return string 
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return WcfUser
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -344,22 +347,17 @@ class WcfUser implements UserInterface, \Serializable
     }
 
     /**
-     * Set password
-     *
-     * @param string $password
+     * @param string $email
      * @return WcfUser
      */
-    public function setPassword($password)
+    public function setEmail(string $email)
     {
-        $this->password = $password;
-
+        $this->email = $email;
         return $this;
     }
 
     /**
-     * Get password
-     *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -367,459 +365,413 @@ class WcfUser implements UserInterface, \Serializable
     }
 
     /**
-     * Set accesstoken
-     *
-     * @param string $accesstoken
+     * @param string $password
      * @return WcfUser
      */
-    public function setAccesstoken($accesstoken)
+    public function setPassword($password)
     {
-        $this->accesstoken = $accesstoken;
-
+        $this->password = $password;
         return $this;
     }
 
     /**
-     * Get accesstoken
-     *
-     * @return string 
+     * @return string
      */
-    public function getAccesstoken()
+    public function getAccessToken()
     {
-        return $this->accesstoken;
+        return $this->accessToken;
     }
 
     /**
-     * Set languageid
-     *
-     * @param integer $languageid
+     * @param string $accessToken
      * @return WcfUser
      */
-    public function setLanguageid($languageid)
+    public function setAccessToken(string $accessToken)
     {
-        $this->languageid = $languageid;
-
+        $this->accessToken = $accessToken;
         return $this;
     }
 
     /**
-     * Get languageid
-     *
-     * @return integer 
+     * @return int
      */
-    public function getLanguageid()
+    public function getLanguageID()
     {
-        return $this->languageid;
+        return $this->languageID;
     }
 
     /**
-     * Set registrationdate
-     *
-     * @param integer $registrationdate
+     * @param int $languageID
      * @return WcfUser
      */
-    public function setRegistrationdate($registrationdate)
+    public function setLanguageID(int $languageID)
     {
-        $this->registrationdate = $registrationdate;
-
+        $this->languageID = $languageID;
         return $this;
     }
 
     /**
-     * Get registrationdate
-     *
-     * @return integer 
+     * @return int
      */
-    public function getRegistrationdate()
+    public function getRegistrationDate()
     {
-        return $this->registrationdate;
+        return $this->registrationDate;
     }
 
     /**
-     * Set styleid
-     *
-     * @param integer $styleid
+     * @param int $registrationDate
      * @return WcfUser
      */
-    public function setStyleid($styleid)
+    public function setRegistrationDate(int $registrationDate)
     {
-        $this->styleid = $styleid;
-
+        $this->registrationDate = $registrationDate;
         return $this;
     }
 
     /**
-     * Get styleid
-     *
-     * @return integer 
+     * @return int
      */
-    public function getStyleid()
+    public function getStyleID()
     {
-        return $this->styleid;
+        return $this->styleID;
     }
 
     /**
-     * Set banned
-     *
-     * @param boolean $banned
+     * @param int $styleID
      * @return WcfUser
      */
-    public function setBanned($banned)
+    public function setStyleID(int $styleID)
     {
-        $this->banned = $banned;
-
+        $this->styleID = $styleID;
         return $this;
     }
 
     /**
-     * Get banned
-     *
-     * @return boolean 
+     * @return bool
      */
-    public function getBanned()
+    public function isBanned()
     {
         return $this->banned;
     }
 
     /**
-     * Set banreason
-     *
-     * @param string $banreason
+     * @param bool $banned
      * @return WcfUser
      */
-    public function setBanreason($banreason)
+    public function setBanned(bool $banned)
     {
-        $this->banreason = $banreason;
-
+        $this->banned = $banned;
         return $this;
     }
 
     /**
-     * Get banreason
-     *
-     * @return string 
+     * @return string
      */
-    public function getBanreason()
+    public function getBanReason()
     {
-        return $this->banreason;
+        return $this->banReason;
     }
 
     /**
-     * Set activationcode
-     *
-     * @param integer $activationcode
+     * @param string $banReason
      * @return WcfUser
      */
-    public function setActivationcode($activationcode)
+    public function setBanReason(string $banReason)
     {
-        $this->activationcode = $activationcode;
-
+        $this->banReason = $banReason;
         return $this;
     }
 
     /**
-     * Get activationcode
-     *
-     * @return integer 
+     * @return int
      */
-    public function getActivationcode()
+    public function getBanExpires()
     {
-        return $this->activationcode;
+        return $this->banExpires;
     }
 
     /**
-     * Set lastlostpasswordrequesttime
-     *
-     * @param integer $lastlostpasswordrequesttime
+     * @param int $banExpires
      * @return WcfUser
      */
-    public function setLastlostpasswordrequesttime($lastlostpasswordrequesttime)
+    public function setBanExpires(int $banExpires)
     {
-        $this->lastlostpasswordrequesttime = $lastlostpasswordrequesttime;
-
+        $this->banExpires = $banExpires;
         return $this;
     }
 
     /**
-     * Get lastlostpasswordrequesttime
-     *
-     * @return integer 
+     * @return int
      */
-    public function getLastlostpasswordrequesttime()
+    public function getActivationCode()
     {
-        return $this->lastlostpasswordrequesttime;
+        return $this->activationCode;
     }
 
     /**
-     * Set lostpasswordkey
-     *
-     * @param string $lostpasswordkey
+     * @param int $activationCode
      * @return WcfUser
      */
-    public function setLostpasswordkey($lostpasswordkey)
+    public function setActivationCode(int $activationCode)
     {
-        $this->lostpasswordkey = $lostpasswordkey;
-
+        $this->activationCode = $activationCode;
         return $this;
     }
 
     /**
-     * Get lostpasswordkey
-     *
-     * @return string 
+     * @return int
      */
-    public function getLostpasswordkey()
+    public function getLastLostPasswordRequestTime()
     {
-        return $this->lostpasswordkey;
+        return $this->lastLostPasswordRequestTime;
     }
 
     /**
-     * Set lastusernamechange
-     *
-     * @param integer $lastusernamechange
+     * @param int $lastLostPasswordRequestTime
      * @return WcfUser
      */
-    public function setLastusernamechange($lastusernamechange)
+    public function setLastLostPasswordRequestTime(int $lastLostPasswordRequestTime)
     {
-        $this->lastusernamechange = $lastusernamechange;
-
+        $this->lastLostPasswordRequestTime = $lastLostPasswordRequestTime;
         return $this;
     }
 
     /**
-     * Get lastusernamechange
-     *
-     * @return integer 
+     * @return string
      */
-    public function getLastusernamechange()
+    public function getLostPasswordKey()
     {
-        return $this->lastusernamechange;
+        return $this->lostPasswordKey;
     }
 
     /**
-     * Set newemail
-     *
-     * @param string $newemail
+     * @param string $lostPasswordKey
      * @return WcfUser
      */
-    public function setNewemail($newemail)
+    public function setLostPasswordKey(string $lostPasswordKey)
     {
-        $this->newemail = $newemail;
-
+        $this->lostPasswordKey = $lostPasswordKey;
         return $this;
     }
 
     /**
-     * Get newemail
-     *
-     * @return string 
+     * @return int
      */
-    public function getNewemail()
+    public function getLastUsernameChange()
     {
-        return $this->newemail;
+        return $this->lastUsernameChange;
     }
 
     /**
-     * Set oldusername
-     *
-     * @param string $oldusername
+     * @param int $lastUsernameChange
      * @return WcfUser
      */
-    public function setOldusername($oldusername)
+    public function setLastUsernameChange(int $lastUsernameChange)
     {
-        $this->oldusername = $oldusername;
-
+        $this->lastUsernameChange = $lastUsernameChange;
         return $this;
     }
 
     /**
-     * Get oldusername
-     *
-     * @return string 
+     * @return string
      */
-    public function getOldusername()
+    public function getNewEmail()
     {
-        return $this->oldusername;
+        return $this->newEmail;
     }
 
     /**
-     * Set quitstarted
-     *
-     * @param integer $quitstarted
+     * @param string $newEmail
      * @return WcfUser
      */
-    public function setQuitstarted($quitstarted)
+    public function setNewEmail(string $newEmail)
     {
-        $this->quitstarted = $quitstarted;
-
+        $this->newEmail = $newEmail;
         return $this;
     }
 
     /**
-     * Get quitstarted
-     *
-     * @return integer 
+     * @return string
      */
-    public function getQuitstarted()
+    public function getOldUsername()
     {
-        return $this->quitstarted;
+        return $this->oldUsername;
     }
 
     /**
-     * Set reactivationcode
-     *
-     * @param integer $reactivationcode
+     * @param string $oldUsername
      * @return WcfUser
      */
-    public function setReactivationcode($reactivationcode)
+    public function setOldUsername(string $oldUsername)
     {
-        $this->reactivationcode = $reactivationcode;
-
+        $this->oldUsername = $oldUsername;
         return $this;
     }
 
     /**
-     * Get reactivationcode
-     *
-     * @return integer 
+     * @return int
      */
-    public function getReactivationcode()
+    public function getQuitStarted()
     {
-        return $this->reactivationcode;
+        return $this->quitStarted;
     }
 
     /**
-     * Set registrationipaddress
-     *
-     * @param string $registrationipaddress
+     * @param int $quitStarted
      * @return WcfUser
      */
-    public function setRegistrationipaddress($registrationipaddress)
+    public function setQuitStarted(int $quitStarted)
     {
-        $this->registrationipaddress = $registrationipaddress;
-
+        $this->quitStarted = $quitStarted;
         return $this;
     }
 
     /**
-     * Get registrationipaddress
-     *
-     * @return string 
+     * @return int
      */
-    public function getRegistrationipaddress()
+    public function getReactivationCode()
     {
-        return $this->registrationipaddress;
+        return $this->reactivationCode;
     }
 
     /**
-     * Set avatarid
-     *
-     * @param integer $avatarid
+     * @param int $reactivationCode
      * @return WcfUser
      */
-    public function setAvatarid($avatarid)
+    public function setReactivationCode(int $reactivationCode)
     {
-        $this->avatarid = $avatarid;
-
+        $this->reactivationCode = $reactivationCode;
         return $this;
     }
 
     /**
-     * Get avatarid
-     *
-     * @return integer 
+     * @return string
      */
-    public function getAvatarid()
+    public function getRegistrationIpAddress()
     {
-        return $this->avatarid;
+        return $this->registrationIpAddress;
     }
 
     /**
-     * Set disableavatar
-     *
-     * @param boolean $disableavatar
+     * @param string $registrationIpAddress
      * @return WcfUser
      */
-    public function setDisableavatar($disableavatar)
+    public function setRegistrationIpAddress(string $registrationIpAddress)
     {
-        $this->disableavatar = $disableavatar;
-
+        $this->registrationIpAddress = $registrationIpAddress;
         return $this;
     }
 
     /**
-     * Get disableavatar
-     *
-     * @return boolean 
+     * @return int
      */
-    public function getDisableavatar()
+    public function getAvatarID()
     {
-        return $this->disableavatar;
+        return $this->avatarID;
     }
 
     /**
-     * Set disableavatarreason
-     *
-     * @param string $disableavatarreason
+     * @param int $avatarID
      * @return WcfUser
      */
-    public function setDisableavatarreason($disableavatarreason)
+    public function setAvatarID(int $avatarID)
     {
-        $this->disableavatarreason = $disableavatarreason;
-
+        $this->avatarID = $avatarID;
         return $this;
     }
 
     /**
-     * Get disableavatarreason
-     *
-     * @return string 
+     * @return bool
      */
-    public function getDisableavatarreason()
+    public function isDisableAvatar()
     {
-        return $this->disableavatarreason;
+        return $this->disableAvatar;
     }
 
     /**
-     * Set enablegravatar
-     *
-     * @param boolean $enablegravatar
+     * @param bool $disableAvatar
      * @return WcfUser
      */
-    public function setEnablegravatar($enablegravatar)
+    public function setDisableAvatar(bool $disableAvatar)
     {
-        $this->enablegravatar = $enablegravatar;
-
+        $this->disableAvatar = $disableAvatar;
         return $this;
     }
 
     /**
-     * Get enablegravatar
-     *
-     * @return boolean 
+     * @return string
      */
-    public function getEnablegravatar()
+    public function getDisableAvatarReason()
     {
-        return $this->enablegravatar;
+        return $this->disableAvatarReason;
     }
 
     /**
-     * Set signature
-     *
-     * @param string $signature
+     * @param string $disableAvatarReason
      * @return WcfUser
      */
-    public function setSignature($signature)
+    public function setDisableAvatarReason(string $disableAvatarReason)
     {
-        $this->signature = $signature;
-
+        $this->disableAvatarReason = $disableAvatarReason;
         return $this;
     }
 
     /**
-     * Get signature
-     *
-     * @return string 
+     * @return int
+     */
+    public function getDisableAvatarExpires()
+    {
+        return $this->disableAvatarExpires;
+    }
+
+    /**
+     * @param int $disableAvatarExpires
+     * @return WcfUser
+     */
+    public function setDisableAvatarExpires(int $disableAvatarExpires)
+    {
+        $this->disableAvatarExpires = $disableAvatarExpires;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableGravatar()
+    {
+        return $this->enableGravatar;
+    }
+
+    /**
+     * @param bool $enableGravatar
+     * @return WcfUser
+     */
+    public function setEnableGravatar(bool $enableGravatar)
+    {
+        $this->enableGravatar = $enableGravatar;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGravatarFileExtension()
+    {
+        return $this->gravatarFileExtension;
+    }
+
+    /**
+     * @param string $gravatarFileExtension
+     * @return WcfUser
+     */
+    public function setGravatarFileExtension(string $gravatarFileExtension)
+    {
+        $this->gravatarFileExtension = $gravatarFileExtension;
+        return $this;
+    }
+
+    /**
+     * @return string
      */
     public function getSignature()
     {
@@ -827,485 +779,427 @@ class WcfUser implements UserInterface, \Serializable
     }
 
     /**
-     * Set signatureenablebbcodes
-     *
-     * @param boolean $signatureenablebbcodes
+     * @param string $signature
      * @return WcfUser
      */
-    public function setSignatureenablebbcodes($signatureenablebbcodes)
+    public function setSignature(string $signature)
     {
-        $this->signatureenablebbcodes = $signatureenablebbcodes;
-
+        $this->signature = $signature;
         return $this;
     }
 
     /**
-     * Get signatureenablebbcodes
-     *
-     * @return boolean 
+     * @return bool
      */
-    public function getSignatureenablebbcodes()
+    public function isSignatureEnableHtml()
     {
-        return $this->signatureenablebbcodes;
+        return $this->signatureEnableHtml;
     }
 
     /**
-     * Set signatureenablehtml
-     *
-     * @param boolean $signatureenablehtml
+     * @param bool $signatureEnableHtml
      * @return WcfUser
      */
-    public function setSignatureenablehtml($signatureenablehtml)
+    public function setSignatureEnableHtml(bool $signatureEnableHtml)
     {
-        $this->signatureenablehtml = $signatureenablehtml;
-
+        $this->signatureEnableHtml = $signatureEnableHtml;
         return $this;
     }
 
     /**
-     * Get signatureenablehtml
-     *
-     * @return boolean 
+     * @return bool
      */
-    public function getSignatureenablehtml()
+    public function isDisableSignature()
     {
-        return $this->signatureenablehtml;
+        return $this->disableSignature;
     }
 
     /**
-     * Set signatureenablesmilies
-     *
-     * @param boolean $signatureenablesmilies
+     * @param bool $disableSignature
      * @return WcfUser
      */
-    public function setSignatureenablesmilies($signatureenablesmilies)
+    public function setDisableSignature(bool $disableSignature)
     {
-        $this->signatureenablesmilies = $signatureenablesmilies;
-
+        $this->disableSignature = $disableSignature;
         return $this;
     }
 
     /**
-     * Get signatureenablesmilies
-     *
-     * @return boolean 
+     * @return string
      */
-    public function getSignatureenablesmilies()
+    public function getDisableSignatureReason()
     {
-        return $this->signatureenablesmilies;
+        return $this->disableSignatureReason;
     }
 
     /**
-     * Set disablesignature
-     *
-     * @param boolean $disablesignature
+     * @param string $disableSignatureReason
      * @return WcfUser
      */
-    public function setDisablesignature($disablesignature)
+    public function setDisableSignatureReason(string $disableSignatureReason)
     {
-        $this->disablesignature = $disablesignature;
-
+        $this->disableSignatureReason = $disableSignatureReason;
         return $this;
     }
 
     /**
-     * Get disablesignature
-     *
-     * @return boolean 
+     * @return int
      */
-    public function getDisablesignature()
+    public function getDisableSignatureExpires()
     {
-        return $this->disablesignature;
+        return $this->disableSignatureExpires;
     }
 
     /**
-     * Set disablesignaturereason
-     *
-     * @param string $disablesignaturereason
+     * @param int $disableSignatureExpires
      * @return WcfUser
      */
-    public function setDisablesignaturereason($disablesignaturereason)
+    public function setDisableSignatureExpires(int $disableSignatureExpires)
     {
-        $this->disablesignaturereason = $disablesignaturereason;
-
+        $this->disableSignatureExpires = $disableSignatureExpires;
         return $this;
     }
 
     /**
-     * Get disablesignaturereason
-     *
-     * @return string 
+     * @return int
      */
-    public function getDisablesignaturereason()
+    public function getLastActivityTime()
     {
-        return $this->disablesignaturereason;
+        return $this->lastActivityTime;
     }
 
     /**
-     * Set lastactivitytime
-     *
-     * @param integer $lastactivitytime
+     * @param int $lastActivityTime
      * @return WcfUser
      */
-    public function setLastactivitytime($lastactivitytime)
+    public function setLastActivityTime(int $lastActivityTime)
     {
-        $this->lastactivitytime = $lastactivitytime;
-
+        $this->lastActivityTime = $lastActivityTime;
         return $this;
     }
 
     /**
-     * Get lastactivitytime
-     *
-     * @return integer 
+     * @return int
      */
-    public function getLastactivitytime()
+    public function getProfileHits()
     {
-        return $this->lastactivitytime;
+        return $this->profileHits;
     }
 
     /**
-     * Set profilehits
-     *
-     * @param integer $profilehits
+     * @param int $profileHits
      * @return WcfUser
      */
-    public function setProfilehits($profilehits)
+    public function setProfileHits(int $profileHits)
     {
-        $this->profilehits = $profilehits;
-
+        $this->profileHits = $profileHits;
         return $this;
     }
 
     /**
-     * Get profilehits
-     *
-     * @return integer 
+     * @return int
      */
-    public function getProfilehits()
+    public function getRankID()
     {
-        return $this->profilehits;
+        return $this->rankID;
     }
 
     /**
-     * Set rankid
-     *
-     * @param integer $rankid
+     * @param int $rankID
      * @return WcfUser
      */
-    public function setRankid($rankid)
+    public function setRankID(int $rankID)
     {
-        $this->rankid = $rankid;
-
+        $this->rankID = $rankID;
         return $this;
     }
 
     /**
-     * Get rankid
-     *
-     * @return integer 
+     * @return string
      */
-    public function getRankid()
+    public function getUserTitle()
     {
-        return $this->rankid;
+        return $this->userTitle;
     }
 
     /**
-     * Set usertitle
-     *
-     * @param string $usertitle
+     * @param string $userTitle
      * @return WcfUser
      */
-    public function setUsertitle($usertitle)
+    public function setUserTitle(string $userTitle)
     {
-        $this->usertitle = $usertitle;
-
+        $this->userTitle = $userTitle;
         return $this;
     }
 
     /**
-     * Get usertitle
-     *
-     * @return string 
+     * @return int
      */
-    public function getUsertitle()
+    public function getUserOnlineGroupID()
     {
-        return $this->usertitle;
+        return $this->userOnlineGroupID;
     }
 
     /**
-     * Set useronlinegroupid
-     *
-     * @param integer $useronlinegroupid
+     * @param int $userOnlineGroupID
      * @return WcfUser
      */
-    public function setUseronlinegroupid($useronlinegroupid)
+    public function setUserOnlineGroupID(int $userOnlineGroupID)
     {
-        $this->useronlinegroupid = $useronlinegroupid;
-
+        $this->userOnlineGroupID = $userOnlineGroupID;
         return $this;
     }
 
     /**
-     * Get useronlinegroupid
-     *
-     * @return integer 
+     * @return int
      */
-    public function getUseronlinegroupid()
+    public function getActivityPoints()
     {
-        return $this->useronlinegroupid;
+        return $this->activityPoints;
     }
 
     /**
-     * Set activitypoints
-     *
-     * @param integer $activitypoints
+     * @param int $activityPoints
      * @return WcfUser
      */
-    public function setActivitypoints($activitypoints)
+    public function setActivityPoints(int $activityPoints)
     {
-        $this->activitypoints = $activitypoints;
-
+        $this->activityPoints = $activityPoints;
         return $this;
     }
 
     /**
-     * Get activitypoints
-     *
-     * @return integer 
+     * @return string
      */
-    public function getActivitypoints()
+    public function getNotificationMailToken()
     {
-        return $this->activitypoints;
+        return $this->notificationMailToken;
     }
 
     /**
-     * Set notificationmailtoken
-     *
-     * @param string $notificationmailtoken
+     * @param string $notificationMailToken
      * @return WcfUser
      */
-    public function setNotificationmailtoken($notificationmailtoken)
+    public function setNotificationMailToken(string $notificationMailToken)
     {
-        $this->notificationmailtoken = $notificationmailtoken;
-
+        $this->notificationMailToken = $notificationMailToken;
         return $this;
     }
 
     /**
-     * Get notificationmailtoken
-     *
-     * @return string 
+     * @return string
      */
-    public function getNotificationmailtoken()
+    public function getAuthData()
     {
-        return $this->notificationmailtoken;
+        return $this->authData;
     }
 
     /**
-     * Set authdata
-     *
-     * @param string $authdata
+     * @param string $authData
      * @return WcfUser
      */
-    public function setAuthdata($authdata)
+    public function setAuthData(string $authData)
     {
-        $this->authdata = $authdata;
-
+        $this->authData = $authData;
         return $this;
     }
 
     /**
-     * Get authdata
-     *
-     * @return string 
+     * @return int
      */
-    public function getAuthdata()
+    public function getLikesReceived()
     {
-        return $this->authdata;
+        return $this->likesReceived;
     }
 
     /**
-     * Set likesreceived
-     *
-     * @param integer $likesreceived
+     * @param int $likesReceived
      * @return WcfUser
      */
-    public function setLikesreceived($likesreceived)
+    public function setLikesReceived(int $likesReceived)
     {
-        $this->likesreceived = $likesreceived;
-
+        $this->likesReceived = $likesReceived;
         return $this;
     }
 
     /**
-     * Get likesreceived
-     *
-     * @return integer 
+     * @return int
      */
-    public function getLikesreceived()
+    public function getTrophyPoints()
     {
-        return $this->likesreceived;
+        return $this->trophyPoints;
     }
 
     /**
-     * Set blogentries
-     *
-     * @param integer $blogentries
+     * @param int $trophyPoints
      * @return WcfUser
      */
-    public function setBlogentries($blogentries)
+    public function setTrophyPoints(int $trophyPoints)
     {
-        $this->blogentries = $blogentries;
-
+        $this->trophyPoints = $trophyPoints;
         return $this;
     }
 
     /**
-     * Get blogentries
-     *
-     * @return integer 
+     * @return string
      */
-    public function getBlogentries()
+    public function getCoverPhotoHash()
     {
-        return $this->blogentries;
+        return $this->coverPhotoHash;
     }
 
     /**
-     * Set wbbposts
-     *
-     * @param integer $wbbposts
+     * @param string $coverPhotoHash
      * @return WcfUser
      */
-    public function setWbbposts($wbbposts)
+    public function setCoverPhotoHash(string $coverPhotoHash)
     {
-        $this->wbbposts = $wbbposts;
-
+        $this->coverPhotoHash = $coverPhotoHash;
         return $this;
     }
 
     /**
-     * Get wbbposts
-     *
-     * @return integer 
+     * @return string
      */
-    public function getWbbposts()
+    public function getCoverPhotoExtension()
     {
-        return $this->wbbposts;
+        return $this->coverPhotoExtension;
     }
 
     /**
-     * Get userid
-     *
-     * @return integer 
-     */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $groupid;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->groupid = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add groupid
-     *
-     * @param WcfUserGroup $groupid
+     * @param string $coverPhotoExtension
      * @return WcfUser
      */
-    public function addGroupid(WcfUserGroup $groupid)
+    public function setCoverPhotoExtension(string $coverPhotoExtension)
     {
-        $this->groupid[] = $groupid;
-
+        $this->coverPhotoExtension = $coverPhotoExtension;
         return $this;
     }
 
     /**
-     * Remove groupid
-     *
-     * @param WcfUserGroup $groupid
+     * @return bool
      */
-    public function removeGroupid(WcfUserGroup $groupid)
+    public function isDisableCoverPhoto()
     {
-        $this->groupid->removeElement($groupid);
+        return $this->disableCoverPhoto;
     }
 
     /**
-     * Get groupid
-     *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param bool $disableCoverPhoto
+     * @return WcfUser
      */
-    public function getGroupid()
+    public function setDisableCoverPhoto(bool $disableCoverPhoto)
     {
-        return $this->groupid;
+        $this->disableCoverPhoto = $disableCoverPhoto;
+        return $this;
     }
 
     /**
-     * String representation of object
-     *
-     * @link  http://php.net/manual/en/serializable.serialize.php
-     * @return string the string representation of the object or null
-     * @since 5.1.0
+     * @return string
      */
-    public function serialize()
+    public function getDisableCoverPhotoReason()
     {
-        return serialize(array(
-            $this->userid,
-            $this->username,
-            $this->password,
-        ));
+        return $this->disableCoverPhotoReason;
     }
 
     /**
-     * Constructs the object
-     *
-     * @link  http://php.net/manual/en/serializable.unserialize.php
-     *
-     * @param string $serialized <p>
-     *                           The string representation of the object.
-     *                           </p>
-     *
-     * @return void
-     * @since 5.1.0
+     * @param string $disableCoverPhotoReason
+     * @return WcfUser
      */
-    public function unserialize($serialized)
+    public function setDisableCoverPhotoReason(string $disableCoverPhotoReason)
     {
-        list(
-            $this->userid,
-            $this->username,
-            $this->password
-        ) = unserialize($serialized);
+        $this->disableCoverPhotoReason = $disableCoverPhotoReason;
+        return $this;
     }
 
     /**
-     * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
+     * @return int
+     */
+    public function getDisableCoverPhotoExpires()
+    {
+        return $this->disableCoverPhotoExpires;
+    }
+
+    /**
+     * @param int $disableCoverPhotoExpires
+     * @return WcfUser
+     */
+    public function setDisableCoverPhotoExpires(int $disableCoverPhotoExpires)
+    {
+        $this->disableCoverPhotoExpires = $disableCoverPhotoExpires;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWbbPosts()
+    {
+        return $this->wbbPosts;
+    }
+
+    /**
+     * @param int $wbbPosts
+     * @return WcfUser
+     */
+    public function setWbbPosts(int $wbbPosts)
+    {
+        $this->wbbPosts = $wbbPosts;
+        return $this;
+    }
+
+    /**
+     * @return array
      */
     public function getRoles()
     {
-        // @todo map forum roles to symfony roles
-        return array('ROLE_WCF');
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     * @return WcfUser
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param ArrayCollection $groups
+     * @return WcfUser
+     */
+    public function setGroups(ArrayCollection $groups)
+    {
+        $this->groups = $groups;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSessions()
+    {
+        return $this->sessions;
+    }
+
+    /**
+     * @param ArrayCollection $sessions
+     * @return WcfUser
+     */
+    public function setSessions(ArrayCollection $sessions)
+    {
+        $this->sessions = $sessions;
+        return $this;
     }
 
     /**
@@ -1321,6 +1215,16 @@ class WcfUser implements UserInterface, \Serializable
     }
 
     /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
      * Removes sensitive data from the user.
      *
      * This is important if, at any given point, sensitive information like
@@ -1328,6 +1232,5 @@ class WcfUser implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
-
     }
 }

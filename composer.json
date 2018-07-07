@@ -7,7 +7,7 @@
     "intergration",
     "bridge"
   ],
-  "version": "1.0.10",
+  "version": "2.0.0",
   "homepage": "https://www.faldoria.de",
   "license": "MIT",
   "authors": [
@@ -24,7 +24,8 @@
     "symfony/form": "~2.3|^3.0|^4.0",
     "symfony/security-bundle": "~2.3|^3.0|^4.0",
     "doctrine/common": "~2.1",
-    "doctrine/orm": "~2.1"
+    "doctrine/orm": "~2.1",
+    "symfony/doctrine-bridge" : "~4.1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "*",

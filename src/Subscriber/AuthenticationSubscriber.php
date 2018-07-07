@@ -65,26 +65,25 @@ class AuthenticationSubscriber implements EventSubscriberInterface
             ->createQueryBuilder('s')
             ->select('s, u')
             ->join('s.user', 'u')
-            ->where('u.id = :id')
+            ->where('u.userID = :id')
             ->setParameter('id', $user->getId())
-            ->orderBy('s.time', 'DESC')
+            ->orderBy('s.lastActivityTime', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
 
         if (!$session) {
-            $session = new WcfSession();
-            $session->setUserid($user);
+            $session = new WcfSession($user);
         }
 
         $session->setLastactivitytime(time());
-        $session->setIpaddress($this->request->getClientIp());
+        $session->setIP($this->request->getClientIp());
         $session->setUseragent($this->request->headers->get('User-Agent'));
 
         $this->entityManager->persist($session);
         $this->entityManager->flush();
 
-        $this->updateCookies($session->getSessionid(), $user->getUserid());
+        $this->updateCookies($session->getSessionid(), $user->getId());
     }
 
     private function updateCookies($sessionId, $userId)

@@ -48,7 +48,7 @@ class WcfTablePrefixSubscriber implements EventSubscriber
         self::$ENTITY_NAME = [
             self::$ENTITY_NAMESPACE.'\\WcfUser',
             self::$ENTITY_NAMESPACE.'\\WcfUserGroup',
-            self::$ENTITY_NAMESPACE.'WcfSession'
+            self::$ENTITY_NAMESPACE.'\\WcfSession'
         ];
     }
 

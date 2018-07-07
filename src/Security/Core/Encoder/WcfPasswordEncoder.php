@@ -2,13 +2,15 @@
 
 namespace xanily\WCFSessionsAuthBundle\Security\Core\Encoder;
 
+use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use wcf\util\CryptoUtil;
 use wcf\util\PasswordUtil;
 
 /**
  * Password Encoder for the WCF.
  */
-class WcfPasswordEncoder implements PasswordEncoderInterface
+class WcfPasswordEncoder extends BasePasswordEncoder
 {
 
     /**
@@ -28,10 +30,11 @@ class WcfPasswordEncoder implements PasswordEncoderInterface
      * Checks a raw password against an encoded password.
      *
      * @param string $encoded An encoded password
-     * @param string $raw     A raw password
-     * @param string $salt    The salt
+     * @param string $raw A raw password
+     * @param string $salt The salt
      *
      * @return bool true if the password is valid, false otherwise
+     * @throws \wcf\system\exception\SystemException
      */
     public function isPasswordValid($encoded, $raw, $salt)
     {
@@ -40,7 +43,7 @@ class WcfPasswordEncoder implements PasswordEncoderInterface
         // first we can check if it is the recently added blowfish
         if (PasswordUtil::isBlowfish($encoded) 
             &&
-            PasswordUtil::secureCompare($encoded, PasswordUtil::getDoubleSaltedHash($raw, $encoded))
+            CryptoUtil::secureCompare($encoded, PasswordUtil::getDoubleSaltedHash($raw, $encoded))
         ) {
             $isValid = true;
         } elseif (PasswordUtil::detectEncryption($encoded) === 'unknown') {

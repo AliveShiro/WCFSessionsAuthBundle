@@ -17,6 +17,7 @@ class WCFSessionsAuthExtension extends Extension
 {
     /**
      * {@inheritdoc}
+     * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -27,11 +28,13 @@ class WCFSessionsAuthExtension extends Extension
             AuthenticationSubscriber::class,
             ]);
 
-        $container->setParameter('wcf_sessions_auth.session.cookie_prefix', $config['session']['cookie_prefix']);
-        $container->setParameter('wcf_sessions_auth.session.login_page', $config['session']['login_page']);
-        $container->setParameter('wcf_sessions_auth.session.default_success_route', $config['session']['default_success_route']);
         $container->setParameter('wcf_sessions_auth.database.entity_manager', $config['database']['entity_manager']);
         $container->setParameter('wcf_sessions_auth.database.table_prefix', $config['database']['table_prefix']);
+        $container->setParameter('wcf_sessions_auth.session.cookie_prefix', $config['session']['cookie_prefix']);
+        $container->setParameter('wcf_sessions_auth.session.login_page', $config['session']['login_page']);
+        $container->setParameter('wcf_sessions_auth.session.target_page', $config['session']['target_page']);
+        $container->setParameter('wcf_sessions_auth.session.ip_check', $config['session']['ip_check']);
+        $container->setParameter('wcf_sessions_auth.session.force_login', $config['session']['force_login']);
         $container->setParameter('wcf_sessions_auth.roles', $config['roles']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

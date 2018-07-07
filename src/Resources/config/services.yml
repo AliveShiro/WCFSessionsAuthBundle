@@ -1,50 +1,45 @@
 services:
-  wcf.sessionsauthbundle.wcf_redirect_successful_login:
-    class:     xanily\WCFSessionsAuthBundle\Security\Guard\AuthenticationResponseStrategy\RedirectToRoute
-    arguments:
-      - '@router'
-      - '%wcf_sessions_auth.session.default_success_route%'
+    wcf.sessionsauthbundle.tableprefix_subscriber:
+        class:      xanily\WCFSessionsAuthBundle\Subscriber\WcfTablePrefixSubscriber
+        public:     false
+        arguments:  ["%wcf_sessions_auth.database.table_prefix%"]
+        tags:
+            - { name: doctrine.event_subscriber }
 
-  wcf.sessionsauthbundle.wcf_encoder:
-    class:  xanily\WCFSessionsAuthBundle\Security\Core\Encoder\WcfPasswordEncoder
-    public: true
+    wcf.sessionsauthbundle.auth_subscriber:
+        class:      xanily\WCFSessionsAuthBundle\Subscriber\AuthenticationSubscriber
+        public:     true
+        autowire:   true
+        arguments:
+            - "@doctrine"
+            - "%wcf_sessions_auth.database.entity_manager%"
+            - "%wcf_sessions_auth.session.cookie_prefix%"
+        tags:
+            - { name: kernel.event_subscriber, event: security.interactive_login, method: onAuthenticationSuccess }
 
-  wcf.sessionsauthbundle.wcf_user_repository:
-    class:     xanily\WCFSessionsAuthBundle\Repository\WcfUserRepository
-    factory:   ['@doctrine', getRepository]
-    arguments:
-      - WCFSessionsAuthBundle:WcfUser
+    wcf.sessionsauthbundle.wcf_session_guard:
+        class:  xanily\WCFSessionsAuthBundle\Security\Guard\WcfSessionGuard
+        public: false
+        arguments:
+            - "%wcf_sessions_auth.session.cookie_prefix%"
+            - "%wcf_sessions_auth.session.login_page%"
+            - "%wcf_sessions_auth.session.force_login%"
 
-  wcf.sessionsauthbundle.wcf_auth_no_action:
-    class: xanily\WCFSessionsAuthBundle\Security\Guard\AuthenticationResponseStrategy\NoAction
+    wcf.sessionsauthbundle.wcf_user_provider:
+        class:      xanily\WCFSessionsAuthBundle\Security\Provider\WcfUserProvider
+        public:     false
+        arguments:  ["@doctrine", "%wcf_sessions_auth.database.entity_manager%"]
+        calls:      [[setRoles, ["%wcf_sessions_auth.roles%"]], [setIpCheckLength, ["%wcf_sessions_auth.session.ip_check%"]]]
 
-  wcf.sessionsauthbundle.wcf_redirect_to_wcf_login:
-    class:     xanily\WCFSessionsAuthBundle\Security\Guard\AuthenticationResponseStrategy\RedirectToUrl
-    arguments: ['/index.php/Login']
+    wcf.sessionsauthbundle.wcf_authenticator:
+        class:    xanily\WCFSessionsAuthBundle\Security\Guard\FormAuthenticator
+        autowire: true
+        public:   true
+        arguments:
+            - "@security.password_encoder"
+            - "%wcf_sessions_auth.session.target_page%"
+            - "%wcf_sessions_auth.session.cookie_prefix%"
 
-  wcf.sessionsauthbundle.tableprefix_subscriber:
-    class:     xanily\WCFSessionsAuthBundle\Subscriber\WcfTablePrefixSubscriber
-    public:    false
-    arguments: ['%wcf_sessions_auth.database.table_prefix%']
-    tags:
-      - { name: doctrine.event_subscriber }
-
-  wcf.sessionsauthbundle.wcf_session_guard:
-    class:     xanily\WCFSessionsAuthBundle\Security\Guard\CookieHashAuthenticator
-    public:    true
-    autowire:  true
-    arguments:
-      - '@wcf.sessionsauthbundle.wcf_redirect_to_wcf_login'
-      - '@wcf.sessionsauthbundle.wcf_redirect_successful_login'
-      - '@wcf.sessionsauthbundle.wcf_redirect_to_wcf_login'
-      - '$wcf_sessions_auth.session.cookie_prefix'
-
-  wcf.sessionsauthbundle.wcf_authenticator:
-    class:     xanily\WCFSessionsAuthBundle\Security\Guard\FormLoginAuthenticator
-    public:    true
-    autowire:  true
-    arguments:
-      - '@wcf.sessionsauthbundle.wcf_user_repository'
-      - '@router'
-      - '@security.password_encoder'
-      - '%wcf_sessions_auth.session.default_success_route%'
+    wcf.sessionsauthbundle.wcf_encoder:
+        class:  xanily\WCFSessionsAuthBundle\Security\Core\Encoder\WcfPasswordEncoder
+        public: true

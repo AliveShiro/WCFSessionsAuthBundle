@@ -5,258 +5,61 @@ namespace xanily\WCFSessionsAuthBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * WcfUserGroup
- *
- * @ORM\Table(name="user_group")
- * @ORM\Entity
+ * Class WcfUserGroup
+ * @package xanily\WCFSessionsAuthBundle\Entity
+ * @ORM\Table(name="user_to_group")
+ * @ORM\Entity(readOnly=true)
  */
 class WcfUserGroup
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="groupName", type="string", length=255, nullable=false)
+     * @var WcfUser
+     * @ORM\ManyToOne(targetEntity="WcfUser", inversedBy="groups")
+     * @ORM\JoinColumn(name="userID", referencedColumnName="userID")
      */
-    private $groupname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="groupDescription", type="text", length=65535, nullable=true)
-     */
-    private $groupdescription;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="groupType", type="boolean", nullable=false)
-     */
-    private $grouptype;
+    private $user;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="priority", type="integer", nullable=false)
-     */
-    private $priority;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="userOnlineMarking", type="string", length=255, nullable=false)
-     */
-    private $useronlinemarking;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="showOnTeamPage", type="boolean", nullable=false)
-     */
-    private $showonteampage;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="groupID", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="groupID", type="integer", nullable=false)
      */
-    private $groupid;
+    private $groupID;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="xanily\WCFSessionsAuthBundle\Entity\WcfUser", mappedBy="groupid")
+     * @return integer
      */
-    private $userid;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function getGroupID()
     {
-        $this->userid = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->groupID;
     }
 
-
     /**
-     * Set groupname
-     *
-     * @param string $groupname
+     * @param integer $groupID
      * @return WcfUserGroup
      */
-    public function setGroupname($groupname)
+    public function setGroupID($groupID)
     {
-        $this->groupname = $groupname;
-
+        $this->groupID = $groupID;
         return $this;
     }
 
     /**
-     * Get groupname
-     *
-     * @return string 
+     * @return WcfUser
      */
-    public function getGroupname()
+    public function getUser()
     {
-        return $this->groupname;
+        return $this->user;
     }
 
     /**
-     * Set groupdescription
-     *
-     * @param string $groupdescription
+     * @param integer $user
      * @return WcfUserGroup
      */
-    public function setGroupdescription($groupdescription)
+    public function setUser($user)
     {
-        $this->groupdescription = $groupdescription;
-
+        $this->user = $user;
         return $this;
     }
 
-    /**
-     * Get groupdescription
-     *
-     * @return string 
-     */
-    public function getGroupdescription()
-    {
-        return $this->groupdescription;
-    }
-
-    /**
-     * Set grouptype
-     *
-     * @param boolean $grouptype
-     * @return WcfUserGroup
-     */
-    public function setGrouptype($grouptype)
-    {
-        $this->grouptype = $grouptype;
-
-        return $this;
-    }
-
-    /**
-     * Get grouptype
-     *
-     * @return boolean 
-     */
-    public function getGrouptype()
-    {
-        return $this->grouptype;
-    }
-
-    /**
-     * Set priority
-     *
-     * @param integer $priority
-     * @return WcfUserGroup
-     */
-    public function setPriority($priority)
-    {
-        $this->priority = $priority;
-
-        return $this;
-    }
-
-    /**
-     * Get priority
-     *
-     * @return integer 
-     */
-    public function getPriority()
-    {
-        return $this->priority;
-    }
-
-    /**
-     * Set useronlinemarking
-     *
-     * @param string $useronlinemarking
-     * @return WcfUserGroup
-     */
-    public function setUseronlinemarking($useronlinemarking)
-    {
-        $this->useronlinemarking = $useronlinemarking;
-
-        return $this;
-    }
-
-    /**
-     * Get useronlinemarking
-     *
-     * @return string 
-     */
-    public function getUseronlinemarking()
-    {
-        return $this->useronlinemarking;
-    }
-
-    /**
-     * Set showonteampage
-     *
-     * @param boolean $showonteampage
-     * @return WcfUserGroup
-     */
-    public function setShowonteampage($showonteampage)
-    {
-        $this->showonteampage = $showonteampage;
-
-        return $this;
-    }
-
-    /**
-     * Get showonteampage
-     *
-     * @return boolean 
-     */
-    public function getShowonteampage()
-    {
-        return $this->showonteampage;
-    }
-
-    /**
-     * Get groupid
-     *
-     * @return integer 
-     */
-    public function getGroupid()
-    {
-        return $this->groupid;
-    }
-
-    /**
-     * Add userid
-     *
-     * @param WcfUser $userid
-     * @return WcfUserGroup
-     */
-    public function addUserid(WcfUser $userid)
-    {
-        $this->userid[] = $userid;
-
-        return $this;
-    }
-
-    /**
-     * Remove userid
-     *
-     * @param WcfUser $userid
-     */
-    public function removeUserid(WcfUser $userid)
-    {
-        $this->userid->removeElement($userid);
-    }
-
-    /**
-     * Get userid
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
 }

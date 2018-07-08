@@ -38,8 +38,8 @@ class WcfSessionGuard extends AbstractGuardAuthenticator
     public function getCredentials(Request $request)
     {
         return [
-            'session' => $request->cookies->get($this->cookieName.'_sid'),
-            'user' => $request->cookies->get($this->cookieName.'_u'),
+            'session' => $request->cookies->get($this->cookieName.'_cookieHash'),
+            'user' => $request->cookies->get($this->cookieName.'_userID'),
             'ip' => $request->getClientIp()
         ];
     }
@@ -63,7 +63,7 @@ class WcfSessionGuard extends AbstractGuardAuthenticator
             ));
         }
         // if no session stored or anonymous user
-        if (!$credentials['session'] || !$credentials['user'] || $credentials['user'] == self::ANONYMOUS_USER_ID) {
+        if (!$credentials['session'] || !$credentials['user'] /*|| $credentials['user'] == self::ANONYMOUS_USER_ID*/) {
             if ($this->forceLogin) {
                 throw new CustomUserMessageAuthenticationException('can not authenticate user via wcf');
             }

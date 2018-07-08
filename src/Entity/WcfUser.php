@@ -341,6 +341,25 @@ class WcfUser implements UserInterface
     /**
      * @return string
      */
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string
+     * @return WcfUser
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
@@ -1212,16 +1231,6 @@ class WcfUser implements UserInterface
     public function getSalt()
     {
         return null;
-    }
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        return $this->username;
     }
 
     /**

@@ -88,8 +88,8 @@ class AuthenticationSubscriber implements EventSubscriberInterface
 
     private function updateCookies($sessionId, $userId)
     {
-        $this->setCookie('sid', $sessionId);
-        $this->setCookie('u', $userId);
+        $this->setCookie('cookieHash', $sessionId);
+        $this->setCookie('userID', $userId);
     }
 
     /**

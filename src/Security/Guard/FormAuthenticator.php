@@ -87,8 +87,8 @@ class FormAuthenticator implements SimpleFormAuthenticatorInterface, Authenticat
     {
         $response = new RedirectResponse($this->targetPath);
 
-        $sidCookieName = $this->getFullCookieName('sid');
-        $userIdCookieName = $this->getFullCookieName('u');
+        $sidCookieName = $this->getFullCookieName('cookieHash');
+        $userIdCookieName = $this->getFullCookieName('userID');
 
         $sid = $request->cookies->get($sidCookieName);
         $userId = $request->cookies->get($userIdCookieName);

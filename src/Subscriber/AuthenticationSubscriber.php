@@ -74,6 +74,10 @@ class AuthenticationSubscriber implements EventSubscriberInterface
 
         if (!$session) {
             $session = new WcfSession($user);
+            $session->setUser($user);
+
+            $cookieSessionKey = $this->getCookie('cookieHash');
+            $session->setAutologin($cookieSessionKey ? true : false);
         }
 
         $session->setLastactivitytime(time());

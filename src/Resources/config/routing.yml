@@ -1,3 +1,0 @@
-wcf_sessions_auth_controllers:
-    resource: "@WCFSessionsAuthBundle/Controller/"
-    type:     annotation

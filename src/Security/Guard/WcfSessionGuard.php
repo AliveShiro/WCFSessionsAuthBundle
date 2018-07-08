@@ -15,7 +15,7 @@ use xanily\WCFSessionsAuthBundle\Security\Provider\WcfUserProvider;
 
 class WcfSessionGuard extends AbstractGuardAuthenticator
 {
-    const ANONYMOUS_USER_ID = 1;
+    //const ANONYMOUS_USER_ID = 1;    // Wbb does not have anonymous user id
     private $cookieName;
     private $loginPage;
     private $forceLogin;
@@ -40,6 +40,7 @@ class WcfSessionGuard extends AbstractGuardAuthenticator
         return [
             'session' => $request->cookies->get($this->cookieName.'_cookieHash'),
             'user' => $request->cookies->get($this->cookieName.'_userID'),
+            'password' => $request->cookies->get($this->cookieName.'_password'),
             'ip' => $request->getClientIp()
         ];
     }

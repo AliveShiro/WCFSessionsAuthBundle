@@ -28,7 +28,9 @@ services:
     wcf.sessionsauthbundle.wcf_user_provider:
         class:      xanily\WCFSessionsAuthBundle\Security\Provider\WcfUserProvider
         public:     false
-        arguments:  ["@doctrine", "%wcf_sessions_auth.database.entity_manager%"]
+        arguments:
+        - "@doctrine"
+        - "%wcf_sessions_auth.database.entity_manager%"
         calls:      [[setRoles, ["%wcf_sessions_auth.roles%"]], [setIpCheckLength, ["%wcf_sessions_auth.session.ip_check%"]]]
 
     wcf.sessionsauthbundle.wcf_authenticator:
@@ -36,9 +38,13 @@ services:
         autowire: true
         public:   true
         arguments:
+            - "@doctrine"
+            - "%wcf_sessions_auth.database.entity_manager%"
+            - "@router"
+            - "@security.csrf.token_manager"
             - "@security.password_encoder"
-            - "%wcf_sessions_auth.session.target_page%"
             - "%wcf_sessions_auth.session.cookie_prefix%"
+            - "%wcf_sessions_auth.session.target_page%"
 
     wcf.sessionsauthbundle.wcf_encoder:
         class:  xanily\WCFSessionsAuthBundle\Security\Core\Encoder\WcfPasswordEncoder

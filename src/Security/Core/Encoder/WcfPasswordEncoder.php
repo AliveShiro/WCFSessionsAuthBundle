@@ -3,7 +3,6 @@
 namespace xanily\WCFSessionsAuthBundle\Security\Core\Encoder;
 
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use wcf\util\CryptoUtil;
 use wcf\util\PasswordUtil;
 

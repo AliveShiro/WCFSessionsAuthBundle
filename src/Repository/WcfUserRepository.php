@@ -10,11 +10,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class WcfUserRepository extends EntityRepository implements UserLoaderInterface
 {
-    
+
     /**
      * @param string $username
-     *
-     * @return mixed
+     * @return mixed|null|\Symfony\Component\Security\Core\User\UserInterface
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function loadUserByUsername($username)
     {

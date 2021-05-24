@@ -19,20 +19,39 @@
     }
   ],
   "require": {
-    "symfony/framework-bundle": "^4.0|^4.2",
-    "symfony/twig-bundle": "^4.0|^4.2",
-    "symfony/form": "^4.0|^4.2",
-    "symfony/security-bundle": "^4.0|^4.2",
+    "symfony/framework-bundle": "^4.0|^4.2|^5.0",
+    "symfony/twig-bundle": "^4.0|^4.2|^5.0",
+    "symfony/form": "^4.0|^4.2|^5.0",
+    "symfony/security-bundle": "^4.0|^4.2|^5.0",
     "doctrine/common": "~2.10",
     "doctrine/orm": "~2.6",
-    "symfony/doctrine-bridge" : "^4.0|^4.2"
+    "symfony/doctrine-bridge": "^4.0|^4.2|^5.0",
+    "woltlab/wcf": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "*",
     "symfony/var-dumper": "*"
   },
+  "config" : {
+    "preferred-install": {
+      "*": "dist"
+    }
+  },
   "minimum-stability": "stable",
   "autoload": {
-    "psr-4": {"xanily\\WCFSessionsAuthBundle\\": "src/"}
-  }
+    "psr-4": {"xanily\\WCFSessionsAuthBundle\\": "src/"},
+    "classmap": ["vendor/woltlab/wcf/wcfsetup/install/files/lib"]
+  },
+  "repositories": [{
+    "type": "package",
+    "package": {
+      "name": "woltlab/wcf",
+      "version": "3.1",
+      "source": {
+        "url": "https://github.com/WoltLab/WCF",
+        "type": "git",
+        "reference": "master"
+      }
+    }
+  }]
 }
